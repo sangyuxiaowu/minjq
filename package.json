@@ -1,0 +1,39 @@
+{
+  "name": "minjq",
+  "version": "1.0.0",
+  "description": "简易版 jQuery 实现 — 受 finom/tsimmes 启发的轻量 DOM 操作库",
+  "main": "minjq.js",
+  "files": [
+    "minjq.js",
+    "minjq.min.js"
+  ],
+  "scripts": {
+    "test": "echo \"No tests\" && exit 0",
+    "minify": "npx terser minjq.js -c -m -o minjq.min.js",
+    "build": "npm run minify"
+  },
+  "keywords": [
+    "dom",
+    "jquery",
+    "minjq",
+    "mini",
+    "dom-utils"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sangyuxiaowu/minjq.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sangyuxiaowu/minjq/issues"
+  },
+  "homepage": "https://github.com/sangyuxiaowu/minjq#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+  ,
+  "devDependencies": {
+    "terser": "^5.16.0"
+  }
+}
