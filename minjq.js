@@ -21,16 +21,9 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
         }
     };
 
-    //// npm install tsimmes
-    // https://github.com/finom/tsimmes/blob/master/es5/src.js
     $.prototype = [];
 
     function $(s, context, tsimmes) {
-        // 增加缓存查询
-        const cacheKey = s + (context ? context.toString() : '');
-        if (cache.has(cacheKey)) {
-            return cache.get(cacheKey);
-        }
 
         tsimmes = Object.create($.prototype);
 
@@ -50,11 +43,7 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
                                     : tsimmes) // else pass [] (context isn't found)
                                 : document[s_querySelectorAll](s) // else select elements globally
                         : s); // else guessing that s variable is array-like Object
-            
-            // 缓存结果
-            if (utils.isString(s)) {
-                cache.set(cacheKey, tsimmes);
-            }
+
         } catch (e) {
             console.error('Selector error:', e);
             return tsimmes;

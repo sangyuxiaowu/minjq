@@ -1,6 +1,6 @@
 {
   "name": "minjq",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "简易版 jQuery 实现 — 受 finom/tsimmes 启发的轻量 DOM 操作库",
   "main": "minjq.js",
   "files": [
