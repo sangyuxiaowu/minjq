@@ -59,3 +59,38 @@ npm publish --access public
 # 许可证
 
 本项目采用 MIT 许可（详见 LICENSE）。
+
+## 快速开始
+
+在浏览器中直接使用：
+
+```html
+<script src="./minjq.js"></script>
+<script>
+  $.ready(function(){
+    // 选择元素并链式调用
+    $('.item').addClass('active').css({color: 'blue'});
+  });
+</script>
+```
+
+示例文件位于 `example/index.html` 与 `example/app.js`，打开 `example/index.html` 即可在浏览器中查看交互示例。
+
+## 生成 API 文档
+
+代码中已包含 JSDoc 风格注释。可使用 `documentation` 生成文档：
+
+安装依赖并生成 Markdown：
+
+```bash
+npm install
+npm run docs:md
+```
+
+或生成 HTML：
+
+```bash
+npm run docs:html
+```
+
+生成结果会输出到 `docs/` 目录下。
