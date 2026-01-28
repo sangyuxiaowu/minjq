@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>minjq - 示例操作演示</title>
+    <script src="../minjq.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e1e5eb;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        .demo-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .demo-section h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 1.3rem;
+        }
+        
+        .demo-section h3 {
+            color: #2c3e50;
+            margin: 15px 0 10px;
+            font-size: 1.1rem;
+        }
+        
+        .demo-area {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e5eb;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        button.danger {
+            background-color: #e74c3c;
+        }
+        
+        button.danger:hover {
+            background-color: #c0392b;
+        }
+        
+        button.success {
+            background-color: #2ecc71;
+        }
+        
+        button.success:hover {
+            background-color: #27ae60;
+        }
+        
+        .demo-output {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-top: 15px;
+            overflow-x: auto;
+            min-height: 40px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .demo-output span {
+            color: #f39c12;
+        }
+        
+        .demo-output .success {
+            color: #2ecc71;
+        }
+        
+        .demo-output .error {
+            color: #e74c3c;
+        }
+        
+        .sidebar {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .sidebar h2 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .info-box {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .info-box h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .demo-item {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .demo-item.active {
+            background-color: #e8f6ff;
+            border-color: #3498db;
+        }
+        
+        .item-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .item {
+            background-color: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            padding: 10px;
+            min-width: 80px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .item.highlight {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+        }
+        
+        .item.active {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .item.hidden {
+            display: none;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .code-block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 15px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5eb;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>minjq 示例操作演示</h1>
+        <p class="subtitle">一个简易版jQuery库的功能展示</p>
+    </header>
+    
+    <div class="container">
+        <main>
+            <!-- 选择器演示 -->
+            <section class="demo-section">
+                <h2>选择器功能</h2>
+                <p>演示使用不同的选择器选择DOM元素。</p>
+                
+                <div class="demo-area">
+                    <div class="item-list" id="selectorDemo">
+                        <div class="item">项目 1</div>
+                        <div class="item">项目 2</div>
+                        <div class="item">项目 3</div>
+                        <div class="item">项目 4</div>
+                        <div class="item">项目 5</div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button id="selectAllItems">选择所有项目</button>
+                        <button id="selectSecondItem">选择第二个项目</button>
+                        <button id="selectByOne">使用 $.one 选择第一个项目</button>
+                        <button id="selectById">通过ID选择</button>
+                        <button id="findItems">在容器内查找项目</button>
+                    </div>
+                    
+                    <div class="demo-output" id="selectorOutput">
+                        选择结果将显示在这里...
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// 选择所有 .item 元素
+$('.item').forEach(el => console.log(el.textContent));
+
+// 选择第二个项目
+$('.item').eq(1).addClass('active');
+
+// 使用 $.one 获取单个元素
+const firstItem = $.one('.item');
+console.log(firstItem.textContent);
+
+// 通过ID选择
+$('#selectorDemo').addClass('highlight');
+
+// 在容器内查找
+$('#selectorDemo').find('.item').addClass('highlight');
+                </div>
+            </section>
+            
+            <!-- DOM操作演示 -->
+            <section class="demo-section">
+                <h2>DOM操作</h2>
+                <p>演示添加、移除和修改DOM元素。</p>
+                
+                <div class="demo-area">
+                    <div class="item-list" id="domDemo">
+                        <div class="item">原始项目 1</div>
+                        <div class="item">原始项目 2</div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button id="appendItem">追加新项目</button>
+                        <button id="removeLastItem">移除最后一个项目</button>
+                        <button id="updateHtml">更新HTML内容</button>
+                        <button id="toggleVisibility">切换显示/隐藏</button>
+                        <button id="showAll">显示所有项目</button>
+                    </div>
+                    
+                    <div class="demo-output" id="domOutput">
+                        DOM操作结果将显示在这里...
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// 追加新元素
+$('#domDemo').append($('&lt;div class="item"&gt;新项目&lt;/div&gt;'));
+
+// 移除最后一个项目
+$('.item').eq(-1).remove();
+
+// 更新HTML内容
+$('#domDemo .item:first-child').html('&lt;strong&gt;更新的项目&lt;/strong&gt;');
+
+// 切换显示/隐藏
+$('.item').toggle();
+
+// 显示所有项目
+$('.item').show();
+                </div>
+            </section>
+            
+            <!-- 事件处理演示 -->
+            <section class="demo-section">
+                <h2>事件处理</h2>
+                <p>演示事件绑定、移除和事件委托。</p>
+                
+                <div class="demo-area">
+                    <div class="item-list" id="eventDemo">
+                        <div class="item">点击我 1</div>
+                        <div class="item">点击我 2</div>
+                        <div class="item">点击我 3</div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button id="bindClick">绑定点击事件</button>
+                        <button id="bindMultipleEvents">绑定多个事件</button>
+                        <button id="bindDelegated">绑定委托事件</button>
+                        <button id="removeEvents">移除事件</button>
+                        <button id="throttleDemo">节流演示</button>
+                        <button id="debounceDemo">防抖演示</button>
+                    </div>
+                    
+                    <div class="controls">
+                        <input type="text" id="eventInput" placeholder="输入内容查看事件触发...">
+                    </div>
+                    
+                    <div class="demo-output" id="eventOutput">
+                        事件信息将显示在这里...
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// 绑定点击事件
+$('.item').on('click', function() {
+    console.log('项目被点击:', this.textContent);
+});
+
+// 绑定多个事件
+$('#eventInput').on('keyup keydown', function(e) {
+    console.log('键盘事件:', e.type, this.value);
+});
+
+// 事件委托
+$('#eventDemo').on('click', '.item', function() {
+    console.log('委托事件触发:', this.textContent);
+});
+
+// 节流示例
+$('#throttleDemo').throttle('click', function() {
+    console.log('节流点击 - 最多每250ms执行一次');
+});
+
+// 防抖示例
+$('#eventInput').debounce('keyup', function() {
+    console.log('防抖 - 输入停止250ms后执行');
+}, 500);
+                </div>
+            </section>
+            
+            <!-- CSS类操作演示 -->
+            <section class="demo-section">
+                <h2>CSS类操作</h2>
+                <p>演示添加、移除、切换和检查CSS类。</p>
+                
+                <div class="demo-area">
+                    <div class="item-list" id="classDemo">
+                        <div class="item">项目 A</div>
+                        <div class="item active">项目 B (已有active类)</div>
+                        <div class="item">项目 C</div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button id="addClass">添加 'highlight' 类</button>
+                        <button id="removeClass">移除 'active' 类</button>
+                        <button id="toggleClass">切换 'active' 类</button>
+                        <button id="checkClass">检查是否有 'active' 类</button>
+                        <button id="cssMethod">使用css()方法</button>
+                    </div>
+                    
+                    <div class="demo-output" id="classOutput">
+                        CSS类操作结果将显示在这里...
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// 添加类
+$('.item').addClass('highlight');
+
+// 移除类
+$('.item').removeClass('active');
+
+// 切换类
+$('.item').toggleClass('active');
+
+// 检查类
+const hasActive = $('.item:first-child').hasClass('active');
+console.log('是否有active类:', hasActive);
+
+// 使用css()方法
+$('.item').css({
+    'color': 'white',
+    'background-color': '#3498db',
+    'border-color': '#2980b9'
+});
+                </div>
+            </section>
+            
+            <!-- 属性和数据演示 -->
+            <section class="demo-section">
+                <h2>属性和数据操作</h2>
+                <p>演示获取/设置属性、数据存储和表单值操作。</p>
+                
+                <div class="demo-area">
+                    <div class="controls">
+                        <input type="text" id="attrInput" value="原始值" placeholder="输入文本...">
+                        <button id="getValue">获取输入值</button>
+                        <button id="setValue">设置输入值</button>
+                    </div>
+                    
+                    <div class="controls">
+                        <button id="setAttr">设置属性</button>
+                        <button id="getAttr">获取属性</button>
+                        <button id="setData">设置数据</button>
+                        <button id="getData">获取数据</button>
+                    </div>
+                    
+                    <div class="demo-output" id="attrOutput">
+                        属性和数据操作结果将显示在这里...
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// 获取/设置表单值
+const value = $('#attrInput').val();
+$('#attrInput').val('新值');
+
+// 设置属性
+$('#attrInput').attr('placeholder', '请输入内容...');
+$('#attrInput').attr({
+    'maxlength': '50',
+    'disabled': false
+});
+
+// 获取属性
+const placeholder = $('#attrInput').attr('placeholder');
+
+// 数据操作
+$('#attrInput').data('user', 'demoUser');
+const user = $('#attrInput').data('user');
+                </div>
+            </section>
+        </main>
+        
+        <aside class="sidebar">
+            <h2>minjq 功能列表</h2>
+            
+            <div class="info-box">
+                <h4>核心功能</h4>
+                <p>提供类似jQuery的选择器和DOM操作方法</p>
+            </div>
+            
+            <div class="demo-item">
+                <strong>选择器</strong>
+                <ul>
+                    <li>$() - 主选择器函数</li>
+                    <li>$.one() - 获取单个元素</li>
+                    <li>$.ready() - DOM加载完成</li>
+                </ul>
+            </div>
+            
+            <div class="demo-item">
+                <strong>DOM操作</strong>
+                <ul>
+                    <li>.append() - 追加子元素</li>
+                    <li>.remove() - 移除元素</li>
+                    <li>.html() - 获取/设置HTML</li>
+                    <li>.find() - 查找后代元素</li>
+                </ul>
+            </div>
+            
+            <div class="demo-item">
+                <strong>事件处理</strong>
+                <ul>
+                    <li>.on() - 绑定事件</li>
+                    <li>.off() - 移除事件</li>
+                    <li>.click() - 点击事件</li>
+                    <li>.throttle() - 节流</li>
+                    <li>.debounce() - 防抖</li>
+                </ul>
+            </div>
+            
+            <div class="demo-item">
+                <strong>CSS操作</strong>
+                <ul>
+                    <li>.addClass() - 添加类</li>
+                    <li>.removeClass() - 移除类</li>
+                    <li>.toggleClass() - 切换类</li>
+                    <li>.hasClass() - 检查类</li>
+                    <li>.css() - 设置样式</li>
+                </ul>
+            </div>
+            
+            <div class="demo-item">
+                <strong>其他功能</strong>
+                <ul>
+                    <li>.val() - 表单值操作</li>
+                    <li>.attr() - 属性操作</li>
+                    <li>.data() - 数据存储</li>
+                    <li>.show()/.hide() - 显示/隐藏</li>
+                    <li>.index() - 获取索引</li>
+                </ul>
+            </div>
+            
+            <div class="info-box">
+                <h4>当前状态</h4>
+                <p>演示项目总数: <span id="itemCount">0</span></p>
+                <p>事件监听器数量: <span id="eventCount">0</span></p>
+            </div>
+            
+            <button id="resetAll" class="danger" style="width: 100%; margin-top: 15px;">重置所有演示</button>
+        </aside>
+    </div>
+    
+    <footer>
+        <p>minjq - 一个简易版jQuery实现 | 演示页面创建于 2023年</p>
+    </footer>
+
+    <script>
+        // 等待DOM加载完成
+        $.ready(function() {
+            // 更新侧边栏信息
+            updateSidebarInfo();
+            
+            // 选择器功能演示
+            setupSelectorDemo();
+            
+            // DOM操作演示
+            setupDomDemo();
+            
+            // 事件处理演示
+            setupEventDemo();
+            
+            // CSS类操作演示
+            setupClassDemo();
+            
+            // 属性和数据演示
+            setupAttrDemo();
+            
+            // 重置按钮
+            $('#resetAll').click(resetAllDemos);
+        });
+        
+        function updateSidebarInfo() {
+            $('#itemCount').html($('.item').length);
+            
+            // 计算事件监听器数量
+            let eventCount = 0;
+            document.querySelectorAll('*').forEach(el => {
+                if (el._events) {
+                    Object.values(el._events).forEach(events => {
+                        eventCount += events.length;
+                    });
+                }
+            });
+            $('#eventCount').html(eventCount);
+        }
+        
+        function logOutput(outputId, message, type = 'info') {
+            const output = $(`#${outputId}`)[0];
+            const timestamp = new Date().toLocaleTimeString();
+            const colorClass = type === 'success' ? 'success' : (type === 'error' ? 'error' : '');
+            
+            output.innerHTML += `<div>[${timestamp}] <span class="${colorClass}">${message}</span></div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function clearOutput(outputId) {
+            $(`#${outputId}`).html('');
+        }
+        
+        // 选择器演示设置
+        function setupSelectorDemo() {
+            const outputId = 'selectorOutput';
+            
+            $('#selectAllItems').click(function() {
+                clearOutput(outputId);
+                $('.item').addClass('highlight');
+                logOutput(outputId, `选择了 ${$('.item').length} 个项目`, 'success');
+            });
+            
+            $('#selectSecondItem').click(function() {
+                clearOutput(outputId);
+                $('.item').removeClass('highlight');
+                $('.item').eq(1).addClass('highlight');
+                logOutput(outputId, '选择了第二个项目', 'success');
+            });
+            
+            $('#selectByOne').click(function() {
+                clearOutput(outputId);
+                const firstItem = $.one('.item');
+                if (firstItem) {
+                    $(firstItem).addClass('highlight');
+                    logOutput(outputId, `使用 $.one() 选择了: "${firstItem.textContent}"`, 'success');
+                }
+            });
+            
+            $('#selectById').click(function() {
+                clearOutput(outputId);
+                $('#selectorDemo').addClass('highlight');
+                logOutput(outputId, '通过ID选择了容器', 'success');
+            });
+            
+            $('#findItems').click(function() {
+                clearOutput(outputId);
+                $('.item').removeClass('highlight');
+                $('#selectorDemo').find('.item').addClass('highlight');
+                logOutput(outputId, `在容器内找到了 ${$('#selectorDemo').find('.item').length} 个项目`, 'success');
+            });
+        }
+        
+        // DOM操作演示设置
+        function setupDomDemo() {
+            const outputId = 'domOutput';
+            let itemCounter = 3;
+            
+            $('#appendItem').click(function() {
+                const newItem = $(`<div class="item">新项目 ${itemCounter++}</div>`);
+                $('#domDemo').append(newItem);
+                logOutput(outputId, `追加了新项目: "新项目 ${itemCounter-1}"`, 'success');
+                updateSidebarInfo();
+            });
+            
+            $('#removeLastItem').click(function() {
+                const items = $('.item');
+                if (items.length > 0) {
+                    const lastItem = items.eq(items.length - 1);
+                    const text = lastItem.text();
+                    lastItem.remove();
+                    logOutput(outputId, `移除了项目: "${text}"`, 'success');
+                    updateSidebarInfo();
+                } else {
+                    logOutput(outputId, '没有可移除的项目', 'error');
+                }
+            });
+            
+            $('#updateHtml').click(function() {
+                const firstItem = $('#domDemo .item').eq(0);
+                if (firstItem.length) {
+                    firstItem.html('<strong>更新的项目</strong>');
+                    logOutput(outputId, '更新了第一个项目的HTML内容', 'success');
+                }
+            });
+            
+            $('#toggleVisibility').click(function() {
+                $('.item').toggleClass('hidden');
+                const isHidden = $('.item').eq(0).hasClass('hidden');
+                logOutput(outputId, `切换显示/隐藏: 当前项目 ${isHidden ? '隐藏' : '显示'}`, 'success');
+            });
+            
+            $('#showAll').click(function() {
+                $('.item').removeClass('hidden');
+                logOutput(outputId, '显示所有项目', 'success');
+            });
+        }
+        
+        // 事件处理演示设置
+        function setupEventDemo() {
+            const outputId = 'eventOutput';
+            let clickHandler, delegatedHandler;
+            
+            $('#bindClick').click(function() {
+                clearOutput(outputId);
+                
+                // 移除之前的事件
+                if (clickHandler) {
+                    $('.item').off('click', clickHandler);
+                }
+                
+                // 绑定新的事件
+                clickHandler = function() {
+                    logOutput(outputId, `点击事件: "${this.textContent}"`, 'success');
+                    $(this).toggleClass('active');
+                };
+                
+                $('.item').on('click', clickHandler);
+                logOutput(outputId, '已绑定点击事件到所有项目', 'success');
+                updateSidebarInfo();
+            });
+            
+            $('#bindMultipleEvents').click(function() {
+                clearOutput(outputId);
+                
+                const inputHandler = function(e) {
+                    logOutput(outputId, `输入框${e.type}: "${this.value}"`);
+                };
+                
+                $('#eventInput').off('keyup keydown').on('keyup keydown', inputHandler);
+                logOutput(outputId, '已绑定 keyup 和 keydown 事件到输入框', 'success');
+                updateSidebarInfo();
+            });
+            
+            $('#bindDelegated').click(function() {
+                clearOutput(outputId);
+                
+                // 移除之前的事件
+                if (delegatedHandler) {
+                    $('#eventDemo').off('click', '.item', delegatedHandler);
+                }
+                
+                // 绑定委托事件
+                delegatedHandler = function() {
+                    logOutput(outputId, `委托事件: "${this.textContent}" (通过父容器处理)`, 'success');
+                };
+                
+                $('#eventDemo').on('click', '.item', delegatedHandler);
+                logOutput(outputId, '已绑定委托事件到容器', 'success');
+                updateSidebarInfo();
+            });
+            
+            $('#removeEvents').click(function() {
+                clearOutput(outputId);
+                
+                // 移除所有事件
+                $('.item').off('click');
+                $('#eventInput').off('keyup keydown');
+                $('#eventDemo').off('click', '.item');
+                
+                // 移除通过 throttle/debounce 绑定的事件
+                $('#throttleDemo').off('click');
+                $('#debounceDemo').off('click');
+                
+                logOutput(outputId, '已移除所有事件监听器', 'success');
+                updateSidebarInfo();
+            });
+            
+            $('#throttleDemo').throttle('click', function() {
+                logOutput(outputId, '节流事件触发 (每250ms最多一次)', 'success');
+            });
+            
+            $('#debounceDemo').debounce('click', function() {
+                logOutput(outputId, '防抖事件触发 (点击后250ms执行)', 'success');
+            });
+            
+            // 防抖输入示例
+            $('#eventInput').debounce('keyup', function() {
+                logOutput(outputId, `防抖输入: "${this.value}" (输入停止250ms后)`, 'success');
+            }, 500);
+        }
+        
+        // CSS类操作演示设置
+        function setupClassDemo() {
+            const outputId = 'classOutput';
+            
+            $('#addClass').click(function() {
+                $('.item').addClass('highlight');
+                logOutput(outputId, '已添加 "highlight" 类到所有项目', 'success');
+            });
+            
+            $('#removeClass').click(function() {
+                $('.item').removeClass('active');
+                logOutput(outputId, '已移除 "active" 类从所有项目', 'success');
+            });
+            
+            $('#toggleClass').click(function() {
+                $('.item').toggleClass('active');
+                const hasActive = $('.item').eq(0).hasClass('active');
+                logOutput(outputId, `切换 "active" 类: 第一个项目现在 ${hasActive ? '有' : '没有'} active 类`, 'success');
+            });
+            
+            $('#checkClass').click(function() {
+                clearOutput(outputId);
+                $('.item').each(function(index) {
+                    const hasActive = $(this).hasClass('active');
+                    logOutput(outputId, `项目 ${index+1}: ${hasActive ? '有' : '没有'} active 类`);
+                });
+            });
+            
+            $('#cssMethod').click(function() {
+                $('.item').css({
+                    'color': 'white',
+                    'background-color': '#3498db',
+                    'border-color': '#2980b9',
+                    'transition': 'all 0.3s ease'
+                });
+                logOutput(outputId, '已使用 .css() 方法设置样式', 'success');
+            });
+        }
+        
+        // 属性和数据演示设置
+        function setupAttrDemo() {
+            const outputId = 'attrOutput';
+            
+            $('#getValue').click(function() {
+                const value = $('#attrInput').val();
+                logOutput(outputId, `输入框的值为: "${value}"`, 'success');
+            });
+            
+            $('#setValue').click(function() {
+                const newValue = `新值 ${new Date().getSeconds()}`;
+                $('#attrInput').val(newValue);
+                logOutput(outputId, `已将输入框的值设置为: "${newValue}"`, 'success');
+            });
+            
+            $('#setAttr').click(function() {
+                $('#attrInput').attr({
+                    'placeholder': '请输入内容...',
+                    'maxlength': '30',
+                    'title': '这是一个演示输入框'
+                });
+                logOutput(outputId, '已设置多个属性到输入框', 'success');
+            });
+            
+            $('#getAttr').click(function() {
+                const placeholder = $('#attrInput').attr('placeholder');
+                const maxlength = $('#attrInput').attr('maxlength');
+                logOutput(outputId, `placeholder: "${placeholder}", maxlength: "${maxlength}"`, 'success');
+            });
+            
+            $('#setData').click(function() {
+                const timestamp = new Date().toLocaleTimeString();
+                $('#attrInput').data('lastUpdated', timestamp);
+                $('#attrInput').data('demoUser', 'minjqUser');
+                logOutput(outputId, `已设置数据: lastUpdated="${timestamp}", demoUser="minjqUser"`, 'success');
+            });
+            
+            $('#getData').click(function() {
+                const lastUpdated = $('#attrInput').data('lastUpdated');
+                const demoUser = $('#attrInput').data('demoUser');
+                logOutput(outputId, `获取数据: lastUpdated="${lastUpdated}", demoUser="${demoUser}"`, 'success');
+            });
+        }
+        
+        // 重置所有演示
+        function resetAllDemos() {
+            // 清除所有输出
+            $('.demo-output').html('选择结果将显示在这里...');
+            
+            // 重置所有项目
+            $('.item').removeClass('highlight active hidden')
+                .css({
+                    'color': '',
+                    'background-color': '',
+                    'border-color': '',
+                    'transition': ''
+                });
+            
+            // 恢复原始文本
+            $('#domDemo').html(`
+                <div class="item">原始项目 1</div>
+                <div class="item">原始项目 2</div>
+            `);
+            
+            // 重置输入框
+            $('#attrInput').val('原始值')
+                .attr({
+                    'placeholder': '输入文本...',
+                    'maxlength': '',
+                    'title': ''
+                })
+                .removeAttr('data-last-updated data-demo-user');
+            
+            $('#eventInput').val('');
+            
+            // 移除所有事件
+            $('*').offAll();
+            
+            // 更新侧边栏信息
+            updateSidebarInfo();
+            
+            // 重新绑定演示事件
+            setTimeout(() => {
+                setupSelectorDemo();
+                setupDomDemo();
+                setupEventDemo();
+                setupClassDemo();
+                setupAttrDemo();
+                
+                alert('所有演示已重置！');
+            }, 100);
+        }
+    </script>
+</body>
+</html>

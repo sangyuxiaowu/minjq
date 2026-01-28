@@ -147,8 +147,6 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
         return $(selector, this);
     };
 
-    //toggleClass
-
     /**
      * 切换选中元素的CSS类名
      * @param {string} className 要切换的类名
@@ -233,15 +231,41 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
 
     /**
      * 设置或获取元素的innerHTML
-     * @param {string} [html] 要设置的HTML内容
-     * @returns {Object} 返回当前jQuery对象实例
+     * @param {string} [html] 要设置的HTML内容  
+     * @return {string|Object} 无参数时返回第一个元素的innerHTML,有参数时返回jQuery对象实例
      * @example
+     * // 获取HTML内容
+     * const content = $('.content').html();
+     * 
+     * // 设置HTML内容
      * $('.content').html('<p>新内容</p>');
      */
-    $.prototype.html = function(html) {
+    $.prototype.html = function(html='') {
+        if (arguments.length === 0) {
+            return this[0].innerHTML;
+        }
         this.forEach(el => el.innerHTML = html);
         return this;
     };
+
+    /**
+     * 设置元素的文本内容
+     * @param {string} [text] 要设置的文本内容
+     * @return {string|Object} 无参数时返回第一个元素的文本内容,有参数时返回jQuery对象实例
+     * @example
+     * // 获取文本内容
+     * const text = $('.item').text();
+     * 
+     * // 设置文本内容
+     * $('.item').text('新的文本内容');
+     */
+    $.prototype.text = function(text='') {
+        if (arguments.length === 0) {
+            return this[0].textContent;
+        }
+        this.forEach(el => el.textContent = text);
+        return this;
+    }
 
     /**
      * 设置元素的CSS样式
@@ -253,6 +277,22 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
     $.prototype.css = function(obj) {
         this.forEach(el => {
             Object.keys(obj).forEach(key => el.style[key] = obj[key]);
+        });
+        return this;
+    };
+
+    /**
+     * 遍历选中的元素集合
+     * @param {Function} callback 回调函数,接收(index, element)参数
+     * @returns {Object} 返回当前jQuery对象实例
+     * @example
+     * $('.item').each(function(index, element) {
+     *     console.log('索引:', index, '元素:', element);
+     * });
+     */
+    $.prototype.each = function(callback) {
+        this.forEach((el, index) => {
+            callback.call(el, index, el);
         });
         return this;
     };
