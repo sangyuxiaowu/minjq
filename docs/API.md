@@ -35,38 +35,44 @@
     *   [html][31]
         *   [Parameters][32]
         *   [Examples][33]
-    *   [css][34]
+    *   [text][34]
         *   [Parameters][35]
         *   [Examples][36]
-    *   [on][37]
+    *   [css][37]
         *   [Parameters][38]
         *   [Examples][39]
-    *   [off][40]
+    *   [each][40]
         *   [Parameters][41]
         *   [Examples][42]
-    *   [index][43]
-        *   [Examples][44]
-    *   [offAll][45]
-        *   [Examples][46]
-    *   [val][47]
-        *   [Parameters][48]
-        *   [Examples][49]
-    *   [attr][50]
-        *   [Parameters][51]
+    *   [on][43]
+        *   [Parameters][44]
+        *   [Examples][45]
+    *   [off][46]
+        *   [Parameters][47]
+        *   [Examples][48]
+    *   [index][49]
+        *   [Examples][50]
+    *   [offAll][51]
         *   [Examples][52]
-    *   [one][53]
+    *   [val][53]
         *   [Parameters][54]
         *   [Examples][55]
-    *   [ready][56]
+    *   [attr][56]
         *   [Parameters][57]
         *   [Examples][58]
+    *   [one][59]
+        *   [Parameters][60]
+        *   [Examples][61]
+    *   [ready][62]
+        *   [Parameters][63]
+        *   [Examples][64]
 
 ## $
 
 简易版jQuery实现
 提供基本的DOM选择和操作功能
 参考资料:
-[https://github.com/finom/tsimmes/blob/master/es5/src.js][59]
+[https://github.com/finom/tsimmes/blob/master/es5/src.js][65]
 
 ### click
 
@@ -74,7 +80,7 @@
 
 #### Parameters
 
-*   `callback` **[Function][60]** 回调函数
+*   `callback` **[Function][66]** 回调函数
 
 #### Examples
 
@@ -84,7 +90,7 @@ $('button').click(function() {
 });
 ```
 
-Returns **[Object][61]** 返回当前对象
+Returns **[Object][67]** 返回当前对象
 
 ### append
 
@@ -92,7 +98,7 @@ Returns **[Object][61]** 返回当前对象
 
 #### Parameters
 
-*   `$child` **([HTMLElement][62] | [Object][61])** 要追加的子元素或jQuery对象
+*   `$child` **([HTMLElement][68] | [Object][67])** 要追加的子元素或jQuery对象
 
 #### Examples
 
@@ -100,7 +106,7 @@ Returns **[Object][61]** 返回当前对象
 $('#parent').append($('<div>新元素</div>'));
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### remove
 
@@ -112,7 +118,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 $('#toRemove').remove();
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### find
 
@@ -120,7 +126,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `selector` **[string][63]** CSS选择器
+*   `selector` **[string][69]** CSS选择器
 
 #### Examples
 
@@ -128,7 +134,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 $('.container').find('.item');
 ```
 
-Returns **[Object][61]** 返回新的jQuery对象实例
+Returns **[Object][67]** 返回新的jQuery对象实例
 
 ### toggleClass
 
@@ -136,9 +142,9 @@ Returns **[Object][61]** 返回新的jQuery对象实例
 
 #### Parameters
 
-*   `className` **[string][63]** 要切换的类名
+*   `className` **[string][69]** 要切换的类名
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### hasClass
 
@@ -146,7 +152,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `className` **[string][63]** 要检查的类名
+*   `className` **[string][69]** 要检查的类名
 
 #### Examples
 
@@ -156,7 +162,7 @@ if ($('#myElement').hasClass('active')) {
 }
 ```
 
-Returns **[boolean][64]** 如果包含则返回true,否则返回false
+Returns **[boolean][70]** 如果包含则返回true,否则返回false
 
 ### addClass
 
@@ -164,7 +170,7 @@ Returns **[boolean][64]** 如果包含则返回true,否则返回false
 
 #### Parameters
 
-*   `className` **[string][63]** 要添加的类名
+*   `className` **[string][69]** 要添加的类名
 
 #### Examples
 
@@ -172,7 +178,7 @@ Returns **[boolean][64]** 如果包含则返回true,否则返回false
 $('.item').addClass('active');
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### removeClass
 
@@ -180,7 +186,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `className` **[string][63]** 要移除的类名
+*   `className` **[string][69]** 要移除的类名
 
 #### Examples
 
@@ -188,7 +194,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 $('.item').removeClass('active');
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### eq
 
@@ -196,7 +202,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `index` **[number][65]** 索引值
+*   `index` **[number][71]** 索引值
 
 #### Examples
 
@@ -204,7 +210,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 $('.item').eq(2); // 获取第3个元素
 ```
 
-Returns **[Object][61]** 返回新的jQuery对象实例
+Returns **[Object][67]** 返回新的jQuery对象实例
 
 ### show
 
@@ -216,7 +222,7 @@ Returns **[Object][61]** 返回新的jQuery对象实例
 $('.hidden').show();
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### hide
 
@@ -228,7 +234,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 $('.visible').hide();
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### html
 
@@ -236,15 +242,39 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `html` **[string][63]?** 要设置的HTML内容
+*   `html` **[string][69]?** 要设置的HTML内容 (optional, default `''`)
 
 #### Examples
 
 ```javascript
+// 获取HTML内容
+const content = $('.content').html();
+
+// 设置HTML内容
 $('.content').html('<p>新内容</p>');
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **([string][69] | [Object][67])** 无参数时返回第一个元素的innerHTML,有参数时返回jQuery对象实例
+
+### text
+
+设置元素的文本内容
+
+#### Parameters
+
+*   `text` **[string][69]?** 要设置的文本内容 (optional, default `''`)
+
+#### Examples
+
+```javascript
+// 获取文本内容
+const text = $('.item').text();
+
+// 设置文本内容
+$('.item').text('新的文本内容');
+```
+
+Returns **([string][69] | [Object][67])** 无参数时返回第一个元素的文本内容,有参数时返回jQuery对象实例
 
 ### css
 
@@ -252,7 +282,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `obj` **[Object][61]** CSS属性对象
+*   `obj` **[Object][67]** CSS属性对象
 
 #### Examples
 
@@ -260,7 +290,25 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 $('.item').css({color: 'red', fontSize: '14px'});
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
+
+### each
+
+遍历选中的元素集合
+
+#### Parameters
+
+*   `callback` **[Function][66]** 回调函数,接收(index, element)参数
+
+#### Examples
+
+```javascript
+$('.item').each(function(index, element) {
+    console.log('索引:', index, '元素:', element);
+});
+```
+
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### on
 
@@ -268,9 +316,9 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `eventType` **[string][63]** 事件类型,多个事件用空格分隔(如 'click keyup')
-*   `selector` **([string][63] | [Function][60])** 选择器(用于事件委托)或事件处理函数
-*   `handler` **[Function][60]?** 事件处理函数(当使用事件委托时必传)
+*   `eventType` **[string][69]** 事件类型,多个事件用空格分隔(如 'click keyup')
+*   `selector` **([string][69] | [Function][66])** 选择器(用于事件委托)或事件处理函数
+*   `handler` **[Function][66]?** 事件处理函数(当使用事件委托时必传)
 
 #### Examples
 
@@ -291,7 +339,7 @@ $('.input').on('keyup keydown', function(e) {
 });
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### off
 
@@ -299,9 +347,9 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `eventType` **[string][63]** 事件类型,多个事件用空格分隔
-*   `selector` **([string][63] | [Function][60])?** 选择器(用于移除委托事件)或事件处理函数
-*   `handler` **[Function][60]?** 要移除的事件处理函数
+*   `eventType` **[string][69]** 事件类型,多个事件用空格分隔
+*   `selector` **([string][69] | [Function][66])?** 选择器(用于移除委托事件)或事件处理函数
+*   `handler` **[Function][66]?** 要移除的事件处理函数
 
 #### Examples
 
@@ -316,7 +364,7 @@ $('.container').off('click', '.button', handler);
 $('.input').off('keyup keydown', handler);
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### index
 
@@ -328,7 +376,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 $('.item').index();
 ```
 
-Returns **[number][65]** 返回索引值
+Returns **[number][71]** 返回索引值
 
 ### offAll
 
@@ -340,7 +388,7 @@ Returns **[number][65]** 返回索引值
 $('.button').offAll();
 ```
 
-Returns **[Object][61]** 返回当前jQuery对象实例
+Returns **[Object][67]** 返回当前jQuery对象实例
 
 ### val
 
@@ -348,7 +396,7 @@ Returns **[Object][61]** 返回当前jQuery对象实例
 
 #### Parameters
 
-*   `value` **[string][63]?** 要设置的值
+*   `value` **[string][69]?** 要设置的值
 
 #### Examples
 
@@ -357,7 +405,7 @@ $('input').val(); // 获取值
 $('input').val('新值'); // 设置值
 ```
 
-Returns **([string][63] | [Object][61])** 无参数时返回值,有参数时返回jQuery对象实例
+Returns **([string][69] | [Object][67])** 无参数时返回值,有参数时返回jQuery对象实例
 
 ### attr
 
@@ -365,8 +413,8 @@ Returns **([string][63] | [Object][61])** 无参数时返回值,有参数时返�
 
 #### Parameters
 
-*   `attr` **([string][63] | [Object][61])** 属性名或属性对象
-*   `value` **[string][63]?** 属性值
+*   `attr` **([string][69] | [Object][67])** 属性名或属性对象
+*   `value` **[string][69]?** 属性值
 
 #### Examples
 
@@ -376,7 +424,7 @@ $('.img').attr('src', 'image.jpg'); // 设置src属性
 $('.img').attr({src: 'image.jpg', alt: '图片'}); // 设置多个属性
 ```
 
-Returns **([string][63] | [Object][61])** 获取时返回属性值,设置时返回jQuery对象实例
+Returns **([string][69] | [Object][67])** 获取时返回属性值,设置时返回jQuery对象实例
 
 ### one
 
@@ -384,8 +432,8 @@ Returns **([string][63] | [Object][61])** 获取时返回属性值,设置时返�
 
 #### Parameters
 
-*   `s` **([string][63] | [object][61])** 选择器或DOM元素
-*   `context` **[object][61]** 上下文对象,默认为document
+*   `s` **([string][69] | [object][67])** 选择器或DOM元素
+*   `context` **[object][67]** 上下文对象,默认为document
 
 #### Examples
 
@@ -394,7 +442,7 @@ $.one('#id');  // 返回id对应的DOM元素
 $.one('.class', parentEl);  // 在父元素中查找class对应的第一个DOM元素
 ```
 
-Returns **([object][61] | null)** 返回找到的第一个DOM元素,未找到返回null
+Returns **([object][67] | null)** 返回找到的第一个DOM元素,未找到返回null
 
 ### ready
 
@@ -402,7 +450,7 @@ DOM加载完成后执行回调
 
 #### Parameters
 
-*   `callback` **[Function][60]** DOM加载完成后需要执行的回调函数
+*   `callback` **[Function][66]** DOM加载完成后需要执行的回调函数
 *   `timeout`   (optional, default `5000`)
 
 #### Examples
@@ -481,66 +529,78 @@ Returns **void**&#x20;
 
 [33]: #examples-10
 
-[34]: #css
+[34]: #text
 
 [35]: #parameters-9
 
 [36]: #examples-11
 
-[37]: #on
+[37]: #css
 
 [38]: #parameters-10
 
 [39]: #examples-12
 
-[40]: #off
+[40]: #each
 
 [41]: #parameters-11
 
 [42]: #examples-13
 
-[43]: #index
+[43]: #on
 
-[44]: #examples-14
+[44]: #parameters-12
 
-[45]: #offall
+[45]: #examples-14
 
-[46]: #examples-15
+[46]: #off
 
-[47]: #val
+[47]: #parameters-13
 
-[48]: #parameters-12
+[48]: #examples-15
 
-[49]: #examples-16
+[49]: #index
 
-[50]: #attr
+[50]: #examples-16
 
-[51]: #parameters-13
+[51]: #offall
 
 [52]: #examples-17
 
-[53]: #one
+[53]: #val
 
 [54]: #parameters-14
 
 [55]: #examples-18
 
-[56]: #ready
+[56]: #attr
 
 [57]: #parameters-15
 
 [58]: #examples-19
 
-[59]: https://github.com/finom/tsimmes/blob/master/es5/src.js
+[59]: #one
 
-[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[60]: #parameters-16
 
-[61]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[61]: #examples-20
 
-[62]: https://developer.mozilla.org/docs/Web/HTML/Element
+[62]: #ready
 
-[63]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[63]: #parameters-17
 
-[64]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[64]: #examples-21
 
-[65]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[65]: https://github.com/finom/tsimmes/blob/master/es5/src.js
+
+[66]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[67]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[68]: https://developer.mozilla.org/docs/Web/HTML/Element
+
+[69]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[70]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[71]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number

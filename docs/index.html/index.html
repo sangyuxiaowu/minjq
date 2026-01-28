@@ -131,9 +131,21 @@
                       </a></li>
                       
                       <li><a
+                        href='#text'
+                        class='regular pre-open'>
+                        #text
+                      </a></li>
+                      
+                      <li><a
                         href='#css'
                         class='regular pre-open'>
                         #css
+                      </a></li>
+                      
+                      <li><a
+                        href='#each'
+                        class='regular pre-open'>
+                        #each
                       </a></li>
                       
                       <li><a
@@ -1224,7 +1236,7 @@ $.<span class="hljs-title function_">one</span>(<span class="hljs-string">&#x27;
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>html(html?)</span>
+            <span class='code strong strong truncate'>html(html = '')</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1234,7 +1246,7 @@ $.<span class="hljs-title function_">one</span>(<span class="hljs-string">&#x27;
 
   <p>设置或获取元素的innerHTML</p>
 
-    <div class='pre p1 fill-light mt0'>html(html: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+    <div class='pre p1 fill-light mt0'>html(html: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
   
   
 
@@ -1251,7 +1263,8 @@ $.<span class="hljs-title function_">one</span>(<span class="hljs-string">&#x27;
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>html</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+            <span class='code bold'>html</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?
+            = <code>&#39;&#39;</code>)</code>
 	    要设置的HTML内容
 
           </div>
@@ -1266,8 +1279,8 @@ $.<span class="hljs-title function_">one</span>(<span class="hljs-string">&#x27;
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        返回当前jQuery对象实例
+      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>:
+        无参数时返回第一个元素的innerHTML,有参数时返回jQuery对象实例
 
       
     
@@ -1281,7 +1294,93 @@ $.<span class="hljs-title function_">one</span>(<span class="hljs-string">&#x27;
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>$(<span class="hljs-string">&#x27;.content&#x27;</span>).<span class="hljs-title function_">html</span>(<span class="hljs-string">&#x27;&lt;p&gt;新内容&lt;/p&gt;&#x27;</span>);</pre>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// 获取HTML内容</span>
+<span class="hljs-keyword">const</span> content = $(<span class="hljs-string">&#x27;.content&#x27;</span>).<span class="hljs-title function_">html</span>();
+
+<span class="hljs-comment">// 设置HTML内容</span>
+$(<span class="hljs-string">&#x27;.content&#x27;</span>).<span class="hljs-title function_">html</span>(<span class="hljs-string">&#x27;&lt;p&gt;新内容&lt;/p&gt;&#x27;</span>);</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='text'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>text(text = '')</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>设置元素的文本内容</p>
+
+    <div class='pre p1 fill-light mt0'>text(text: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>text</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?
+            = <code>&#39;&#39;</code>)</code>
+	    要设置的文本内容
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>:
+        无参数时返回第一个元素的文本内容,有参数时返回jQuery对象实例
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// 获取文本内容</span>
+<span class="hljs-keyword">const</span> text = $(<span class="hljs-string">&#x27;.item&#x27;</span>).<span class="hljs-title function_">text</span>();
+
+<span class="hljs-comment">// 设置文本内容</span>
+$(<span class="hljs-string">&#x27;.item&#x27;</span>).<span class="hljs-title function_">text</span>(<span class="hljs-string">&#x27;新的文本内容&#x27;</span>);</pre>
     
   
 
@@ -1359,6 +1458,85 @@ $.<span class="hljs-title function_">one</span>(<span class="hljs-string">&#x27;
     
       
       <pre class='p1 overflow-auto round fill-light'>$(<span class="hljs-string">&#x27;.item&#x27;</span>).<span class="hljs-title function_">css</span>({<span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-attr">fontSize</span>: <span class="hljs-string">&#x27;14px&#x27;</span>});</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='each'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>each(callback)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>遍历选中的元素集合</p>
+
+    <div class='pre p1 fill-light mt0'>each(callback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>callback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    回调函数,接收(index, element)参数
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        返回当前jQuery对象实例
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>$(<span class="hljs-string">&#x27;.item&#x27;</span>).<span class="hljs-title function_">each</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">index, element</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;索引:&#x27;</span>, index, <span class="hljs-string">&#x27;元素:&#x27;</span>, element);
+});</pre>
     
   
 
