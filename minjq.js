@@ -146,6 +146,32 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
         return $(selector, this);
     };
 
+    //toggleClass
+
+    /**
+     * 切换选中元素的CSS类名
+     * @param {string} className 要切换的类名
+     * @returns {Object} 返回当前jQuery对象实例
+     */
+    $.prototype.toggleClass = function(className) {
+        return this.forEach(el => el.classList.toggle(className));
+    };
+
+    
+    /**
+     * 检查选中的元素是否包含指定的CSS类名
+     * @param {string} className 要检查的类名
+     * @returns {boolean} 如果包含则返回true,否则返回false
+     * @example
+     * if ($('#myElement').hasClass('active')) {
+     *     console.log('元素包含active类名');
+     * }
+     */
+    $.prototype.hasClass = function(className) {
+        const el = this[0];
+        return el.classList.contains(className);
+    }
+
     /**
      * 为选中的元素添加CSS类名
      * @param {string} className 要添加的类名
