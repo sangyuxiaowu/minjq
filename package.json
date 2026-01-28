@@ -1,13 +1,12 @@
 {
   "name": "minjq",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "简易版 jQuery 实现 — 受 finom/tsimmes 启发的轻量 DOM 操作库",
   "main": "minjq.js",
   "files": [
     "minjq.js",
     "minjq.min.js"
   ],
-  
   "keywords": [
     "dom",
     "jquery",
@@ -31,18 +30,20 @@
   "devDependencies": {
     "terser": "^5.16.0",
     "jest": "^29.0.0",
-      "jest-environment-jsdom": "^29.0.0",
-      "documentation": "^14.0.0"
+    "jest-environment-jsdom": "^29.0.0",
+    "documentation": "^14.0.0"
   },
-    "scripts": {
-      "test": "jest",
-      "minify": "npx terser minjq.js -c -m -o minjq.min.js",
-      "build": "npm run minify",
-      "docs:md": "documentation build minjq.js -f md -o docs/API.md",
-      "docs:html": "documentation build minjq.js -f html -o docs/index.html"
-    },
+  "scripts": {
+    "test": "jest",
+    "minify": "npx terser minjq.js -c -m -o minjq.min.js",
+    "build": "npm run minify",
+    "docs:md": "documentation build minjq.js -f md -o docs/API.md",
+    "docs:html": "documentation build minjq.js -f html -o docs/index.html"
+  },
   "jest": {
     "testEnvironment": "jsdom",
-    "testMatch": ["**/__tests__/**/*.js?(x)"]
+    "testMatch": [
+      "**/__tests__/**/*.js?(x)"
+    ]
   }
 }
