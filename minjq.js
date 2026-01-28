@@ -5,9 +5,7 @@
  * https://github.com/finom/tsimmes/blob/master/es5/src.js
  */
 $ = (function(document, s_addEventListener, s_querySelectorAll) {
-    // 缓存常用DOM查询结果
-    const cache = new Map();
-    
+
     // 添加基础工具方法
     const utils = {
         isString(obj) {
@@ -106,9 +104,10 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
 	 * });
 	 */
 	$.prototype.click = function(callback) {
-		return this.forEach(function(el) {
-			el.addEventListener('click', callback);
-		});
+        this.forEach(function(el) {
+            el.addEventListener('click', callback);
+        });
+        return this;
 	};
     
     /**
@@ -122,7 +121,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
         if (!($child instanceof HTMLElement)) {
             $child = $child[0];
         }
-        return this.forEach(el => el.appendChild($child));
+        this.forEach(el => el.appendChild($child));
+        return this;
     };
 
     /**
@@ -132,7 +132,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('#toRemove').remove();
      */
     $.prototype.remove = function() {
-        return this.forEach(el => el.parentNode.removeChild(el));
+        this.forEach(el => el.parentNode.removeChild(el));
+        return this;
     };
 
     /**
@@ -154,7 +155,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * @returns {Object} 返回当前jQuery对象实例
      */
     $.prototype.toggleClass = function(className) {
-        return this.forEach(el => el.classList.toggle(className));
+        this.forEach(el => el.classList.toggle(className));
+        return this;
     };
 
     
@@ -180,7 +182,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('.item').addClass('active');
      */
     $.prototype.addClass = function(className) {
-        return this.forEach(el => el.classList.add(className));
+        this.forEach(el => el.classList.add(className));
+        return this;
     };
 
     /**
@@ -191,7 +194,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('.item').removeClass('active');
      */
     $.prototype.removeClass = function(className) {
-        return this.forEach(el => el.classList.remove(className));
+        this.forEach(el => el.classList.remove(className));
+        return this;
     };
 
     /**
@@ -212,7 +216,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('.hidden').show();
      */
     $.prototype.show = function() {
-        return this.forEach(el => el.style.display = 'block');
+        this.forEach(el => el.style.display = 'block');
+        return this;
     };
 
     /**
@@ -222,7 +227,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('.visible').hide();
      */
     $.prototype.hide = function() {
-        return this.forEach(el => el.style.display = 'none');
+        this.forEach(el => el.style.display = 'none');
+        return this;
     };
 
     /**
@@ -233,7 +239,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('.content').html('<p>新内容</p>');
      */
     $.prototype.html = function(html) {
-        return this.forEach(el => el.innerHTML = html);
+        this.forEach(el => el.innerHTML = html);
+        return this;
     };
 
     /**
@@ -244,9 +251,10 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('.item').css({color: 'red', fontSize: '14px'});
      */
     $.prototype.css = function(obj) {
-        return this.forEach(el => {
+        this.forEach(el => {
             Object.keys(obj).forEach(key => el.style[key] = obj[key]);
         });
+        return this;
     };
 
     /**
@@ -274,15 +282,15 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
     $.prototype.on = function(eventType, selector, handler) {
         const isDelegate = utils.isString(selector) && utils.isFunction(handler);
         if (!isDelegate) handler = selector;
-        
-        return this.forEach(el => {
+
+        this.forEach(el => {
             eventType.split(' ').forEach(event => {
                 const [type, namespace] = event.split('.');
-                
+
                 const eventHandler = function(evt) {
                     if (isDelegate) {
                         const target = evt.target.closest(selector);
-                        if (el.contains(target)) {
+                        if (target && el.contains(target)) {
                             handler.call(target, evt);
                         }
                     } else {
@@ -296,12 +304,16 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
                 el._events[type].push({
                     handler: eventHandler,
                     namespace: namespace,
-                    original: handler
+                    original: handler,
+                    selector: isDelegate ? selector : null,
+                    delegate: !!isDelegate
                 });
 
                 el.addEventListener(type, eventHandler);
             });
         });
+
+        return this;
     };
 
     /**
@@ -326,30 +338,49 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
             selector = null;
         }
 
-        return this.forEach(el => {
+        this.forEach(el => {
             if (!el._events) return;
 
             eventType.split(' ').forEach(event => {
                 const [type, namespace] = event.split('.');
-                
-                const removeEvent = (element, eventData) => {
-                    if (namespace && eventData.namespace !== namespace) return;
-                    if (handler && eventData.original !== handler) return;
-                    
-                    element.removeEventListener(type, eventData.handler);
-                };
+                if (!el._events[type]) return;
 
-                if (selector) {
-                    el.querySelectorAll(selector).forEach(target => {
-                        if (target._events && target._events[type]) {
-                            target._events[type].forEach(eventData => removeEvent(target, eventData));
+                const remaining = [];
+
+                el._events[type].forEach(eventData => {
+                    // namespace filter
+                    if (namespace && eventData.namespace !== namespace) {
+                        remaining.push(eventData);
+                        return;
+                    }
+
+                    // selector (delegated) handling: match delegate entries on the element
+                    if (selector) {
+                        if (!eventData.delegate || eventData.selector !== selector) {
+                            remaining.push(eventData);
+                            return;
                         }
-                    });
-                } else if (el._events[type]) {
-                    el._events[type].forEach(eventData => removeEvent(el, eventData));
+                    }
+
+                    // handler filter
+                    if (handler && eventData.original !== handler) {
+                        remaining.push(eventData);
+                        return;
+                    }
+
+                    // remove listener
+                    el.removeEventListener(type, eventData.handler);
+                });
+
+                if (remaining.length) {
+                    el._events[type] = remaining;
+                } else {
+                    delete el._events[type];
                 }
             });
         });
+
+        return this;
     };
 
     /**
@@ -370,11 +401,12 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      * $('.button').offAll();
      */
     $.prototype.offAll = function() {
-        return this.forEach((el, i) => {
+        this.forEach((el, i) => {
             const clone = el.cloneNode(true);
             el.parentNode.replaceChild(clone, el);
             this[i] = clone;
         });
+        return this;
     };
 
     /**
@@ -387,7 +419,8 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      */
     $.prototype.val = function() {
         if (arguments.length) {
-            return this.forEach(el => el.value = arguments[0]);
+            this.forEach(el => el.value = arguments[0]);
+            return this;
         }
         return this[0].value;
     };
@@ -404,23 +437,26 @@ $ = (function(document, s_addEventListener, s_querySelectorAll) {
      */
     $.prototype.attr = function() {
         if (typeof arguments[0] === 'object') {
-            return this.forEach(el => {
+            this.forEach(el => {
                 Object.entries(arguments[0]).forEach(([attr, value]) => {
                     el.setAttribute(attr, value);
                 });
             });
+            return this;
         }
         if (typeof arguments[0] === 'string' && arguments.length < 2) {
             return this[0].getAttribute(arguments[0]);
         }
-        return this.forEach(el => el.setAttribute(arguments[0], arguments[1]));
+        this.forEach(el => el.setAttribute(arguments[0], arguments[1]));
+        return this;
     };
 
     $.prototype.data = function(key, value) {
         if (arguments.length === 1) {
             return this[0].dataset[key];
         }
-        return this.forEach(el => el.dataset[key] = value);
+        this.forEach(el => el.dataset[key] = value);
+        return this;
     }
 
     // 添加节流方法
