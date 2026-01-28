@@ -74,7 +74,7 @@ npm publish --access public
 </script>
 ```
 
-示例文件位于 `example/index.html` 与 `example/app.js`，打开 `example/index.html` 即可在浏览器中查看交互示例。
+示例文件位于 `example/index.html`，打开 `example/index.html` 即可在浏览器中查看交互示例。
 
 ## 生成 API 文档
 
